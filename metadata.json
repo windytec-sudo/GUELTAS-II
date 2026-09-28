@@ -1,0 +1,6 @@
+{
+  "name": "Ots de TRABAJO - S. E. WINDYTEC S. L.",
+  "description": "Aplicación para partes de trabajo (OTs), control de operarios, aerogeneradores, tareas y tiempos de S. E. WINDYTEC S. L.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

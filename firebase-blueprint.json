@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "MasterData": {
+      "title": "MasterData",
+      "description": "Datos maestros de la obra (operarios, aerogeneradores, tipos de OT, tareas y webhook)",
+      "type": "object",
+      "properties": {
+        "operarios": {
+          "type": "array",
+          "description": "Lista de operarios disponibles"
+        },
+        "aerogeneradores": {
+          "type": "array",
+          "description": "Lista de aerogeneradores y parques"
+        },
+        "tiposOT": {
+          "type": "array",
+          "description": "Tipos de órdenes de trabajo"
+        },
+        "tareasPorOT": {
+          "type": "object",
+          "description": "Mapeo de tareas por tipo de OT"
+        },
+        "googleSheetWebhookUrl": {
+          "type": "string",
+          "description": "URL del webhook de Google Sheets opcional"
+        },
+        "ultimoSyncGoogleSheet": {
+          "type": "string",
+          "description": "Fecha del último sincronizado con Google Sheet"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Fecha de actualización ISO"
+        }
+      },
+      "required": ["operarios", "aerogeneradores", "tiposOT", "tareasPorOT"]
+    },
+    "OTRecord": {
+      "title": "OTRecord",
+      "description": "Registro completo de una orden de trabajo realizada",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador de la orden de trabajo"
+        },
+        "fechaCreacion": {
+          "type": "string",
+          "description": "Fecha y hora de creación ISO"
+        },
+        "quienRealiza": {
+          "type": "string",
+          "description": "Nombre de quien realiza el parte"
+        },
+        "fechaTrabajos": {
+          "type": "string",
+          "description": "Fecha de los trabajos YYYY-MM-DD"
+        },
+        "aerogenerador": {
+          "type": "string",
+          "description": "Aerogenerador o parque intervenido"
+        },
+        "operariosParticipantes": {
+          "type": "array",
+          "description": "Operarios asignados a este parte"
+        },
+        "tiemposOperarios": {
+          "type": "array",
+          "description": "Horarios y descansos de cada operario"
+        },
+        "tipoOT": {
+          "type": "string",
+          "description": "Tipo de OT seleccionado"
+        },
+        "tareas": {
+          "type": "array",
+          "description": "Listado de tareas realizadas con porcentaje y operarios"
+        },
+        "extraworks": {
+          "type": "array",
+          "description": "Extraworks, waiting time y retrabajos anotados"
+        },
+        "materialRotoFaltante": {
+          "type": "object",
+          "description": "Detalle de materiales rotos o faltantes"
+        },
+        "observaciones": {
+          "type": "object",
+          "description": "Observaciones generales del parte"
+        }
+      },
+      "required": ["id", "fechaCreacion", "quienRealiza", "fechaTrabajos", "aerogenerador", "tipoOT"]
+    }
+  },
+  "firestore": {
+    "/masterData/config": {
+      "schema": "MasterData",
+      "description": "Documento único que almacena los datos maestros de la obra"
+    },
+    "/records/{recordId}": {
+      "schema": "OTRecord",
+      "description": "Colección de registros de órdenes de trabajo"
+    }
+  }
+}
